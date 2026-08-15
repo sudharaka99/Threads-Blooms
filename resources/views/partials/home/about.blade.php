@@ -21,7 +21,7 @@
                     our goal is to create pieces that make everyday moments
                     a little more beautiful.
                 </p>
-                <a href="{{ url('/about') }}" class="btn btn-outline">
+                <a href="{{ route('about') }}" class="btn btn-outline">
                     Read Our Story <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>

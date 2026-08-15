@@ -25,11 +25,11 @@
             <div>
                 <h4>Shop</h4>
                 <ul class="footer-links">
-                    <li><a href="{{ url('/products') }}">All Products</a></li>
-                    <li><a href="{{ url('/products?category=cross-stitch') }}">Cross-Stitch</a></li>
-                    <li><a href="{{ url('/products?category=tshirts') }}">Embroidered T-Shirts</a></li>
-                    <li><a href="{{ url('/products?category=jewellery') }}">Jewellery</a></li>
-                    <li><a href="{{ url('/customize') }}">Custom Designs</a></li>
+                    <li><a href="{{ route('products.index') }}">All Products</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'cross-stitch']) }}">Cross-Stitch</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'tshirts']) }}">Embroidered T-Shirts</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'jewellery']) }}">Jewellery</a></li>
+                    <li><a href="{{ route('customize.create') }}">Custom Designs</a></li>
                 </ul>
             </div>
 
@@ -37,8 +37,8 @@
             <div>
                 <h4>Information</h4>
                 <ul class="footer-links">
-                    <li><a href="{{ url('/about') }}">About Us</a></li>
-                    <li><a href="{{ url('/contact') }}">Contact Us</a></li>
+                    <li><a href="{{ route('about') }}">About Us</a></li>
+                    <li><a href="{{ route('contact.create') }}">Contact Us</a></li>
                     <li><a href="{{ url('/shipping') }}">Shipping & Delivery</a></li>
                     <li><a href="{{ url('/returns') }}">Returns & Exchanges</a></li>
                     <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>

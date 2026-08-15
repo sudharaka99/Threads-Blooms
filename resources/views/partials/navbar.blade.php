@@ -3,27 +3,28 @@
     <div class="nav-container">
 
         {{-- Logo --}}
-        <a href="{{ url('/') }}" class="logo">
+        <a href="{{ route('home') }}" class="logo">
             <img src="{{ asset('images/logo.png') }}" alt="Threads & Blooms" class="logo-image">
         </a>
 
         {{-- Navigation Links --}}
         <nav class="nav-links" id="navLinks">
-            <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">Home</a>
-            <a href="{{ url('/products') }}" class="{{ request()->is('products*') ? 'active' : '' }}">Products</a>
-            <a href="{{ url('/customize') }}" class="{{ request()->is('customize') ? 'active' : '' }}">Customize</a>
-            <a href="{{ url('/about') }}" class="{{ request()->is('about') ? 'active' : '' }}">About Us</a>
-            <a href="{{ url('/contact') }}" class="{{ request()->is('contact') ? 'active' : '' }}">Contact</a>
-            
+            <a href="{{ route('home') }}" class="{{ request()->is('/') ? 'active' : '' }}">Home</a>
+            <a href="{{ route('products.index') }}" class="{{ request()->is('products*') ? 'active' : '' }}">Products</a>
+            <a href="{{ route('customize.create') }}" class="{{ request()->is('customize') ? 'active' : '' }}">Customize</a>
+            <a href="{{ route('about') }}" class="{{ request()->is('about') ? 'active' : '' }}">About Us</a>
+            <a href="{{ route('contact.create') }}" class="{{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+
             {{-- Mobile Auth Links --}}
             @auth
-                <a href="{{ url('/dashboard') }}">Dashboard</a>
-                <a href="{{ url('/profile') }}">Profile</a>
-                <a href="{{ url('/orders') }}">Orders</a>
-                <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
+                @php($userDashboardRoute = Auth::user()->is_admin ? route('admin.dashboard') : route('profile.edit'))
+                <a href="{{ $userDashboardRoute }}">Dashboard</a>
+                <a href="{{ route('profile.edit') }}">Profile</a>
+                <a href="{{ route('orders.index') }}">Orders</a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
                     Logout
                 </a>
-                <form id="logout-form-mobile" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
 
@@ -36,17 +37,17 @@
 
         {{-- Icons & Auth Buttons --}}
         <div class="nav-icons">
-            <a href="{{ url('/search') }}" class="nav-icon">
+            <a href="{{ route('search') }}" class="nav-icon">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </a>
-            <a href="{{ url('/wishlist') }}" class="nav-icon">
+            <a href="{{ route('wishlist.index') }}" class="nav-icon">
                 <i class="fa-regular fa-heart"></i>
             </a>
-            <a href="{{ url('/cart') }}" class="nav-icon">
+            <a href="{{ route('cart.index') }}" class="nav-icon">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span class="cart-count">{{ session('cart_count', 0) }}</span>
             </a>
-            
+
             {{-- Desktop Auth Buttons --}}
             <div class="auth-buttons">
                 @auth
@@ -57,27 +58,27 @@
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                         <div class="user-dropdown" id="userDropdown">
-                            <a href="{{ url('/dashboard') }}">
+                            <a href="{{ Auth::user()->is_admin ? route('admin.dashboard') : route('profile.edit') }}">
                                 <i class="fa-regular fa-user"></i> Dashboard
                             </a>
-                            <a href="{{ url('/profile') }}">
+                            <a href="{{ route('profile.edit') }}">
                                 <i class="fa-regular fa-address-card"></i> Profile
                             </a>
-                            <a href="{{ url('/orders') }}">
+                            <a href="{{ route('orders.index') }}">
                                 <i class="fa-regular fa-receipt"></i> Orders
                             </a>
                             <hr>
-                            <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa-solid fa-right-from-bracket"></i> Logout
                             </a>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </div>
                     </div>
                 @else
-                    <a href="{{ url('/login') }}" class="btn btn-outline btn-small">Login</a>
-                    <a href="{{ url('/register') }}" class="btn btn-primary btn-small">Register</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline btn-small">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-small">Register</a>
                 @endauth
             </div>
         </div>
