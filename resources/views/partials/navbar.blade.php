@@ -26,9 +26,6 @@
                 <form id="logout-form-mobile" action="{{ url('/logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-            @else
-                <a href="{{ url('/login') }}" class="{{ request()->is('login') ? 'active' : '' }}">Login</a>
-                <a href="{{ url('/register') }}" class="{{ request()->is('register') ? 'active' : '' }}">Register</a>
             @endauth
         </nav>
 
