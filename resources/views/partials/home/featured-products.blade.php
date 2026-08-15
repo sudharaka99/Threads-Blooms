@@ -40,7 +40,7 @@
                                 <span class="wishlist">
                                     <i class="fa-regular fa-heart"></i>
                                 </span>
-                                <img src="{{ asset('images/' . $product['image']) }}" alt="{{ $product['name'] }}">
+                                <img src="{{ asset('images/' . $product['image']) }}" alt="{{ $product['name'] }}" loading="lazy" decoding="async">
                             </div>
                         </a>
                         <div class="product-info">

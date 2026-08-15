@@ -3,8 +3,8 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-images">
-                <img src="{{ asset('images/home/about-1.jpg') }}" alt="Threads and Blooms handmade embroidery">
-                <img src="{{ asset('images/home/about-2.jpg') }}" alt="Handmade embroidery work">
+                <img src="{{ asset('images/about-1.jpg') }}" alt="Threads and Blooms handmade embroidery" loading="lazy" decoding="async">
+                <img src="{{ asset('images/about-2.jpg') }}" alt="Handmade embroidery work" loading="lazy" decoding="async">
             </div>
             <div class="about-text">
                 <div class="eyebrow">Our Story</div>

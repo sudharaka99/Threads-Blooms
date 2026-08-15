@@ -3,7 +3,7 @@
     <div class="container">
         <div class="handmade-grid">
             <div class="handmade-image">
-                <img src="{{ asset('images/home/custom-embroidery.jpg') }}" alt="Custom Embroidery">
+                <img src="{{ asset('images/home/custom-embroidery.jpg') }}" alt="Custom Embroidery" loading="lazy" decoding="async">
                 <div class="image-decoration"></div>
             </div>
             <div class="handmade-text">

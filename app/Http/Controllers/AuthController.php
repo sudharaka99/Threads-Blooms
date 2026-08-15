@@ -30,12 +30,49 @@ class AuthController extends Controller
             // Merge guest cart with user cart
             $this->mergeGuestCart();
 
+            // Check if user is admin
+            if (Auth::user()->is_admin == 1) {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+
             return redirect()->intended('/');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            $request->session()->regenerate();
+            
+            // Merge guest cart with user cart
+            $this->mergeGuestCart();
+
+            // Check if user is admin
+            if (Auth::user()->is_admin == 1) {
+                return response()->json([
+                    'message' => 'Login successful',
+                    'is_admin' => true,
+                    'redirect' => route('admin.dashboard')
+                ], 200);
+            }
+
+            return response()->json([
+                'message' => 'Login successful',
+                'is_admin' => false,
+                'redirect' => '/'
+            ], 200);
+        }
+
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
     public function showRegistrationForm()
@@ -49,14 +86,13 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'phone' => 'nullable|string|max:20',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'is_admin' => 0, // Default to regular user
         ]);
 
         Auth::login($user);

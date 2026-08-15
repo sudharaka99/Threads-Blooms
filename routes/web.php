@@ -43,8 +43,10 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/autocomplete', [SearchController::class, 'autocomplete'])->name('search.autocomplete');
 
 // Customize
+// Customer facing - Design your own product
 Route::get('/customize', [CustomOrderController::class, 'create'])->name('customize.create');
 Route::post('/customize', [CustomOrderController::class, 'store'])->name('customize.store');
+
 
 // About & Contact
 Route::get('/about', function () {
@@ -107,6 +109,7 @@ Route::middleware(['auth'])->group(function () {
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Register

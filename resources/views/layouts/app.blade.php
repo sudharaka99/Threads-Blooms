@@ -1,42 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('description', 'Threads & Blooms - Handmade cross-stitch patterns and embroidered designs')">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Threads & Blooms')</title>
 
-    {{-- Google Fonts --}}
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
 
-    {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    {{-- Custom CSS --}}
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    @yield('styles')
+    
+    @stack('styles')
 </head>
 <body>
-    {{-- Top Bar --}}
     @include('partials.top-bar')
-
-    {{-- Navigation --}}
     @include('partials.navbar')
 
-    {{-- Main Content --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- Footer --}}
     @include('partials.footer')
 
-    {{-- Custom JS --}}
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Scripts -->
+    <script>
+        // ==============================
+        // NAVBAR FUNCTIONS
+        // ==============================
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks) {
+                navLinks.classList.toggle('show');
+            }
+        }
 
-    @yield('scripts')
+        // Toggle user dropdown
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('show');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.querySelector('.user-menu');
+            if (userMenu && !userMenu.contains(event.target)) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks && navLinks.classList.contains('show')) {
+                        navLinks.classList.remove('show');
+                    }
+                });
+            });
+        });
+
+        // Close dropdown on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+    </script>
+    @stack('scripts')
 </body>
 </html>

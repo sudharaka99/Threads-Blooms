@@ -10,7 +10,7 @@
     <div class="gallery-grid">
         @for($i = 1; $i <= 6; $i++)
             <div class="gallery-item">
-                <img src="{{ asset('images/gallery/gallery-' . $i . '.jpg') }}" alt="Threads and Blooms">
+                <img src="{{ asset('images/gallery/gallery-' . $i . '.jpg') }}" alt="Threads and Blooms" loading="lazy" decoding="async">
                 <div class="gallery-overlay">
                     <i class="fa-brands fa-instagram"></i>
                 </div>
