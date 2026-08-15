@@ -18,7 +18,7 @@
             @endphp
 
             @foreach($categories as $category)
-                <a href="{{ url('/products?category=' . $category['slug']) }}" class="category-card">
+                <a href="{{ route('products.index', ['category' => $category['slug']]) }}" class="category-card">
                     <img src="{{ asset('images/categories/' . $category['image']) }}" alt="{{ $category['name'] }}" loading="lazy" decoding="async">
                     <div class="category-overlay">
                         <div class="category-info">
